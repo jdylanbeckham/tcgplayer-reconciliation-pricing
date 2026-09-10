@@ -1,28 +1,20 @@
-##### \# Trading Card Acquisition, Pricing \& Inventory Optimization System
-
-##### 
-
-##### A reconstructed and modernized inventory reconciliation and pricing workflow
-
-##### built from a historical trading-card retail operation.
+# \# Trading Card Acquisition, Pricing \& Inventory Optimization System
 
 
 
-This repository demonstrates how a spreadsheet-based operational system used
-
-for high-volume Magic: The Gathering inventory management was reconstructed,
-
-validated, and converted into a reproducible Python/pandas workflow.
+### A reconstructed and modernized inventory reconciliation and pricing workflow built from a historical trading-card retail operation.
 
 
 
-\## Project Context
+This repository demonstrates how a spreadsheet-based operational system used for high-volume Magic: The Gathering inventory management was reconstructed, validated, and converted into a reproducible Python/pandas workflow.
 
 
 
-The original workflow supported a trading-card business processing thousands
+### \## Project Context
 
-of inventory records across approximately 4,000+ SKUs.
+
+
+The original workflow supported a trading-card business processing thousands of inventory records across approximately 4,000+ SKUs.
 
 
 
@@ -44,23 +36,15 @@ The operating process combined:
 
 
 
-The historical spreadsheet workflow emphasized operational speed and ease of
-
-use. Fresh exports could be copied into the workbook and thousands of records
-
-processed quickly, with a relatively small number of exceptions handled
-
-manually.
+The historical spreadsheet workflow emphasized operational speed and ease of use. Fresh exports could be copied into the workbook and thousands of records processed quickly, with a relatively small number of exceptions handled manually.
 
 
 
-This project preserves that practical business logic while replacing fragile
-
-spreadsheet matching with explicit, testable Python transformations.
+This project preserves that practical business logic while replacing fragile spreadsheet matching with explicit, testable Python transformations.
 
 
 
-\## Reconstructed Workflow
+### \## Reconstructed Workflow
 
 
 
@@ -78,9 +62,7 @@ The modernized workflow:
 
 5\. Validates the relationship as many-to-one.
 
-6\. Applies the reconstructed inventory business rule:
-
-&#x20;  `Tradelist Count = MIN(Count, 8)`.
+6\. Applies the reconstructed inventory business rule: `Tradelist Count = MIN(Count, 8)`.
 
 7\. Assigns Trader Tools `sellPrice` to successfully matched records.
 
@@ -92,13 +74,11 @@ The modernized workflow:
 
 
 
-\## Validation Results
+### \## Validation Results
 
 
 
-The reconstructed workflow was tested against 4,368 historical TCGplayer
-
-inventory records.
+The reconstructed workflow was tested against 4,368 historical TCGplayer inventory records.
 
 
 
@@ -124,13 +104,11 @@ inventory records.
 
 
 
-The standalone Python implementation independently reproduced the results
-
-established during notebook-based reconstruction and validation.
+The standalone Python implementation independently reproduced the results established during notebook-based reconstruction and validation.
 
 
 
-\## Exception Analysis
+### \## Exception Analysis
 
 
 
@@ -154,39 +132,31 @@ The 111 unmatched records are retained rather than silently force-matched.
 
 
 
-This makes unresolved data-quality and source-coverage conditions visible and
-
-auditable.
+This makes unresolved data-quality and source-coverage conditions visible and auditable.
 
 
 
-\## Historical Findings
+### \## Historical Findings
 
 
 
-\### Ae / Æ Naming Difference
+##### \### Ae / Æ Naming Difference
 
 
 
-Trader Tools and TCGplayer represented some card names differently, such as
-
-`Aetherling` versus `Ætherling`.
+Trader Tools and TCGplayer represented some card names differently, such as `Aetherling` versus `Ætherling`.
 
 
 
-Controlled normalization of `Æ` to `Ae` recovered three records that the
-
-historical spreadsheet workflow did not reconcile.
+Controlled normalization of `Æ` to `Ae` recovered three records that the historical spreadsheet workflow did not reconcile.
 
 
 
-\### Tarmogoyf Pricing Defect
+##### \### Tarmogoyf Pricing Defect
 
 
 
-The reconstruction also identified a historical pricing anomaly involving
-
-Tarmogoyf.
+The reconstruction also identified a historical pricing anomaly involving Tarmogoyf.
 
 
 
@@ -200,9 +170,7 @@ Trader Tools contained:
 
 
 
-The historical Processing worksheet assigned the Modern Masters record a
-
-`My Price` of:
+The historical Processing worksheet assigned the Modern Masters record a `My Price` of:
 
 
 
@@ -218,21 +186,15 @@ The relationship was reproduced directly:
 
 
 
-This demonstrates that both Masters-edition pricing records contributed to the
-
-historical result.
+This demonstrates that both Masters-edition pricing records contributed to the historical result.
 
 
 
-The precise historical spreadsheet formula responsible is not inferred without
-
-direct formula evidence. The Python implementation prevents the condition by
-
-requiring an explicit normalized `Name + Edition` relationship.
+The precise historical spreadsheet formula responsible is not inferred without direct formula evidence. The Python implementation prevents the condition by requiring an explicit normalized `Name + Edition` relationship.
 
 
 
-\## Repository Structure
+### \## Repository Structure
 
 
 
@@ -273,4 +235,166 @@ tcgplayer-reconciliation-pricing/
 ├── README.md
 
 └── requirements.txt
+
+```
+
+
+
+### \## Running the Workflow
+
+
+
+Install the required Python packages:
+
+
+
+```bash
+
+pip install -r requirements.txt
+
+```
+
+
+
+Run the reconciliation workflow from the repository root:
+
+
+
+```bash
+
+python src/reconciliation.py
+
+```
+
+
+
+For the included historical reconstruction dataset, the expected result is:
+
+
+
+```text
+
+TCGplayer Inventory Reconciliation
+
+\----------------------------------
+
+Source records: 4368
+
+Matched records: 4257
+
+Exception records: 111
+
+```
+
+
+
+The script produces:
+
+
+
+```text
+
+outputs/reconciliation/modernized\_reconciliation\_output.csv
+
+outputs/exceptions/reconciliation\_exceptions.csv
+
+```
+
+
+
+### \## Reconstruction Notebook
+
+
+
+The notebook in `notebooks/` documents the analytical reconstruction process, including:
+
+
+
+\- source-data inspection
+
+\- duplicate and key analysis
+
+\- historical matching reconstruction
+
+\- controlled normalization
+
+\- exception investigation
+
+\- historical Processing comparison
+
+\- pricing-rule reconstruction
+
+\- Tarmogoyf defect analysis
+
+\- modernized output construction
+
+\- independent output validation
+
+
+
+The notebook serves as the analytical evidence for the business rules implemented in `src/reconciliation.py`.
+
+
+
+### \## Data Provenance
+
+
+
+The repository contains historical source examples, workbook-derived reconstruction inputs, historical reference outputs, and modernized outputs.
+
+
+
+Standalone source exports should not automatically be assumed to represent the exact temporal pair originally used by the historical workbook. The `reconstruction\_inputs` files preserve the relevant data state used to reconstruct and validate the workflow.
+
+
+
+Original merchant/vendor names are retained where they provide meaningful business and pricing-source context.
+
+
+
+### \## Technologies
+
+
+
+\- Python
+
+\- pandas
+
+\- Jupyter Notebook
+
+\- CSV data processing
+
+\- Excel-based historical workflow reconstruction
+
+\- data reconciliation
+
+\- exception handling
+
+\- validation and reproducibility controls
+
+
+
+### \## Project Purpose
+
+
+
+This project is part of the Professional Portfolio \& Analytics Development (PPAD) initiative and demonstrates the ability to:
+
+
+
+\- reconstruct undocumented operational logic;
+
+\- translate spreadsheet processes into maintainable Python;
+
+\- validate business rules empirically;
+
+\- identify and explain historical data defects;
+
+\- design deterministic reconciliation logic;
+
+\- preserve source-data traceability;
+
+\- build auditable exception handling; and
+
+\- convert a real operating process into a reproducible technical artifact.
 
