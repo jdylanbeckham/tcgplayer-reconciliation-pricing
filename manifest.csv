@@ -1,0 +1,8 @@
+﻿file,data_rows
+raw_examples/tcgplayer_mypricing_export.csv,3178
+raw_examples/trader_tools_export.csv,717
+reconstruction_inputs/tcgplayer_inventory_input.csv,4368
+reconstruction_inputs/trader_tools_market_input.csv,4062
+reference_outputs/historical_buylist_reference.csv,4368
+reference_outputs/historical_export_reference.csv,4368
+reference_outputs/historical_processing_reference.csv,4499
